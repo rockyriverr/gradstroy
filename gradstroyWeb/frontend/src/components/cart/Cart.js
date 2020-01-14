@@ -1,8 +1,26 @@
 import React, { Fragment, Component } from 'react';
-import Menu from '../menu/Menu'
+import Menu from '../menu/Menu';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { delete } from '../../actions/cart'  
 
 export class Cart extends Component {
 	render() {
+		let mystore = [];
+		const cart = this.props.cart;
+		for (var key in cart) {
+			mystore.push(
+				<tr key={key}>
+					<td>
+						<img src={this.props.products[key].img} alt="img" width="90%" />
+					</td>
+					<td>{this.props.products[key].name}</td>
+					<td>{this.props.products[key].price} р.</td>
+					<td>{cart[key]} шт.</td>
+					<td><button onClick={this.props.delete.bind(this, key)}>Удалить</button></td>
+				</tr>
+			)
+		}
 		return (
 			<div style={{display: "flex"}}>
 				<Menu />
@@ -16,24 +34,7 @@ export class Cart extends Component {
 			            	<th>Количество</th>
 			            	<th>Удалить товар из корзины</th>
 			        	</tr>
-						<tr>
-							<td>
-								<img src="../../../static/img/тв7.jpg" alt="тв7" width="90%" />
-							</td>
-							<td>ТВ7</td>
-							<td>1350 р.</td>
-							<td>1 шт.</td>
-							<td><button>Удалить</button></td>
-						</tr>
-						<tr>
-							<td>
-								<img src="../../../static/img/tmk.n120n.png" alt="Masterflow" width="90%" />
-							</td>
-							<td>Мастерфлоу</td>
-							<td>2500 р.</td>
-							<td>5 шт.</td>
-							<td><button>Удалить</button></td>
-						</tr>
+						{mystore}
 					</tbody>
 				</table>
 			</div>
@@ -41,4 +42,9 @@ export class Cart extends Component {
 	}
 }
 
-export default Cart;
+const mapStateToProps = state => ({
+	products: state.loader.products,
+	cart: state.cart.cart
+});
+
+export default connect(mapStateToProps)(Cart);

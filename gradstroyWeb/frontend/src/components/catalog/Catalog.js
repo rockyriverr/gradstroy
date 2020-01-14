@@ -1,9 +1,9 @@
 import React, { Fragment, Component } from 'react';
-import Menu from '../menu/Menu'
+import Menu from '../menu/Menu';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types'; 
-import { getProducts } from '../../actions/loader' 
-import { toCart } from '../../actions/cart' 
+import { getProducts } from '../../actions/loader'; 
+import { toCart } from '../../actions/cart'; 
 
 export class Catalog extends Component {
 
@@ -37,15 +37,18 @@ export class Catalog extends Component {
 		let last = []
 		for (let i = 0; i < len%3; ++i) {
 			last.push(
-				<td>
+				<td key={i} onClick={this.props.toCart.bind(this, len-len%3+i)}>
 				    <div className="holder">
 				        <img src={this.props.products[len-len%3+i].img} alt="Masterflow" width="90%" />
 				        <div className = "block"> {this.props.products[len-len%3+i].description}</div>
 				    </div>
 				</td>
 			)
-
 		}
+		products.push(
+			<tr key={len}>{last}</tr>
+		)
+
 		return (
 			<div style={{display: "flex"}}>
 				<Menu />
