@@ -1,10 +1,27 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import css from '../../templates/style.css';
+import css from '../../static/style.css';
+import { HashRouter as Router, Route, Switch, Redirrect } from 'react-router-dom'
+
+import Menu from './menu/Menu';
+import Cart from './cart/Cart';
+import Catalog from './catalog/Catalog';
+
+import { Provider } from 'react-redux';
+import store from '../store';
 
 class App extends Component {
 	render() {
-		return <h1>React App</h1>
+		return (
+			<Provider store={store}>
+				<Router>
+					<Switch>
+						<Route exact path="/" component={Catalog} />
+						<Route exact path="/cart" component={Cart} />
+					</Switch>
+				</Router>
+			</Provider> 
+		)
 	}
 }
 
