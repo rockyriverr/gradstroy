@@ -6,9 +6,9 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('frontend.urls'))
-    path('', include('catalog.urls'))
-    path('', include('order.urls'))
+    path('', include('frontend.urls')),
+    path('', include('catalog.urls')),
+    path('', include('orders.urls'))
 ]
 
 urlpatterns +=staticfiles_urlpatterns()

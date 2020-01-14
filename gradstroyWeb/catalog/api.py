@@ -2,7 +2,7 @@ from catalog.models import Product
 from rest_framework import viewsets, permissions
 from .serializers import ProductSerializer
 
-class ProductViewSet(viewsets.Model):
+class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     permissions_classes = [
         permissions.AllowAny
