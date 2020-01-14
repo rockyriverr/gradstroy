@@ -16,6 +16,7 @@ export class Catalog extends Component {
 	}
 
 	render() {
+		console.log(this.props)
 		let products = [];
 		const len = this.props.products.length;
 		for (let i = 0; i < Math.floor(len/3); ++i) {

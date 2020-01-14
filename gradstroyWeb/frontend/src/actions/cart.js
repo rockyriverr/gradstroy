@@ -12,7 +12,7 @@ import { DELETE } from './types';
 
 // DELETE PRODUCT FROM CARD
 
-  export const delete = (num) => dispatch => {
+  export const deleteProd = (num) => dispatch => {
  	dispatch({
  		type: DELETE,
  		payload: num

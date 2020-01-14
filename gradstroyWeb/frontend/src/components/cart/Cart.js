@@ -2,13 +2,18 @@ import React, { Fragment, Component } from 'react';
 import Menu from '../menu/Menu';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { delete } from '../../actions/cart'  
+import { deleteProd } from '../../actions/cart'  
 
 export class Cart extends Component {
+	rewrite(key) {
+		this.props.deleteProd(key);
+		this.forceUpdate();
+	} 
 	render() {
+		console.log(this.props);
 		let mystore = [];
 		const cart = this.props.cart;
-		for (var key in cart) {
+		for (var key in this.props.cart) {
 			mystore.push(
 				<tr key={key}>
 					<td>
@@ -17,7 +22,7 @@ export class Cart extends Component {
 					<td>{this.props.products[key].name}</td>
 					<td>{this.props.products[key].price} р.</td>
 					<td>{cart[key]} шт.</td>
-					<td><button onClick={this.props.delete.bind(this, key)}>Удалить</button></td>
+					<td><button onClick={this.props.deleteProd.bind(this, key)}>Удалить</button></td>
 				</tr>
 			)
 		}
@@ -47,4 +52,4 @@ const mapStateToProps = state => ({
 	cart: state.cart.cart
 });
 
-export default connect(mapStateToProps)(Cart);
+export default connect(mapStateToProps, { deleteProd })(Cart);

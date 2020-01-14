@@ -23,18 +23,18 @@ export default function(state = initialState, action) {
 				cart: newCart
 			};
 		case DELETE:
-			const num = action.payload;
-			let newCart = state.cart;
-			let curr = state.cart[num] - 1;
-			if (curr === 0) {
-				delete newCart[num];
+			const num1 = action.payload;
+			let newCart1 = state.cart;
+			let curr1 = state.cart[num1] - 1;
+			if (curr1 === 0) {
+				delete newCart1[num1];
 			}
 			else {
-				newCart[num] = curr;
+				newCart1[num1] = curr1;
 			}
 			return {
 				...state,
-				cart: newCart
+				cart: newCart1
 			};
 		default:
 			return state;
