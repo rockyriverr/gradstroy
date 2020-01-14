@@ -23,7 +23,11 @@ export class Menu extends Component {
 		                        </td>
 		                    </tr>
 		                    <tr>
-		                        <td><button>Заказы </button></td>
+		                        <td>
+									<Link to="/orders">
+									<button>Заказы </button>
+									</Link>
+								</td>
 		                    </tr>
 		                </tbody>
 	                </table>
