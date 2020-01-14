@@ -8,7 +8,7 @@ import { toCart } from '../../actions/cart'
 
 export class Order extends Component {
     static propTypes = {
-        products: PropTypes.array.isRequired
+        orders: PropTypes.array.isRequired
     }
     componentDidMount() {
 		this.props.getOrders();
@@ -16,20 +16,17 @@ export class Order extends Component {
     render() {
         let orders = [];
 		const len = this.props.orders.length;
-		for (let i = 0; i < Math.floor(len/2); ++i) {
-			let line = [];
-			line.push(
-				<td key={i*2}>
-			            <div> {this.props.orders[i*2].description}</div>
-			    </td>
-            )
-            line.push(
-                <td key={i*2+1}>
-                    <div> {this.props.orders[i*2+1].status}</div>
-                </td>
-            )
-			orders.push(
-				<tr key={i}>{line}</tr>
+		for (let i = 0; i < len; ++i) {
+            let line = [];
+            orders.push(
+                <tr key={i}>
+				    <td>
+			            <div> {this.props.orders[i].description}</div>
+			        </td>
+                    <td>
+                        <div> {this.props.orders[i].status}</div>
+                    </td>
+			    </tr>
 			)
 		}
         return (
