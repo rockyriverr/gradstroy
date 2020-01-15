@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { makeOrder } from '../../actions/orders' 
+import { makeOrder } from '../../actions/order' 
 
 export class Menu extends Component {
 	createOrder = (e) => {
@@ -9,8 +9,9 @@ export class Menu extends Component {
 		const products = this.props.products;
 		let orderDescr = "";
 		for (var key in cart) {
-			orderDescr += products[key].name + " (" + cart[key] + " шт.)  ";
+			orderDescr += products[key].name + " (" + cart[key].toString(10) + " шт.)  ";
 		}
+		this.props.makeOrder({description: orderDescr, status: "Ожидает подтверждения"});
 	}
 	render() {
 		let retmenu;

@@ -14,10 +14,10 @@ export default function(state = initialState, action) {
         case MAKE_ORDER:
           return {
             ...state,
-            orders: [...state.orders, action.payload]
+            orders: [...state.orders, action.payload],
+            cart: []
           }
        default:
            return state;
    }
-
-
+ }
