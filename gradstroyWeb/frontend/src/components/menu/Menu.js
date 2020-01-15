@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { makeOrder } from '../../actions/order' 
+import { makeOrder } from '../../actions/order'; 
+import { logout } from '../../actions/auth';
 
 export class Menu extends Component {
 	createOrder = (e) => {
 		const cart = this.props.cart;
 		const products = this.props.products;
 		let orderDescr = "";
+		let sum = 0;
 		for (var key in cart) {
-			orderDescr += products[key].name + " (" + cart[key].toString(10) + " шт.)  ";
+			orderDescr += products[key].name + " (" + cart[key].toString(10) + " шт.) ";
+			sum += products[key].price*cart[key];
 		}
-		this.props.makeOrder({description: orderDescr, status: "Ожидает подтверждения"});
+		orderDescr += "Сумма: " + sum.toString(10) + "р.";
+		this.props.makeOrder(JSON.stringify({description: orderDescr, status: "Ожидает подтверждения"}));
 	}
 	render() {
 		let retmenu;
@@ -20,7 +24,11 @@ export class Menu extends Component {
 				retmenu = (
 					<tbody>
 		                <tr>
-		                    <td><button>Войдите</button></td>
+		                    <td>
+		                    	<Link to="/login">
+		                    		<button>Войдите</button>
+		                    	</Link>
+		                    </td>
 		                </tr>
 		                <tr>
 		                    <td>
@@ -32,7 +40,7 @@ export class Menu extends Component {
 		                <tr>
 		                    <td>
 								<Link to="/orders">
-									<button>Заказы </button>
+									<button>Мои заказы </button>
 								</Link>
 							</td>
 		                </tr>
@@ -43,7 +51,11 @@ export class Menu extends Component {
 				retmenu = (
 					<tbody>
 		                <tr>
-		                    <td><button>Оформить заказ</button></td>
+		                    <td>
+		                    	{this.props.islogin ? (<button onClick={this.createOrder}>Оформить заказ</button>)
+		                    		: (<Link to="/login"><button>Оформить заказ</button></Link>)
+		                    	}
+		                    </td>
 		                </tr>
 		                <tr>
 		                    <td>
@@ -61,9 +73,7 @@ export class Menu extends Component {
 		                </tr>
 		                 <tr>
 		                    <td>
-								<Link to="/">
-									<button>Выйти</button>
-								</Link>
+								<button onClick={this.props.logout}>Выйти</button>
 							</td>
 		                </tr>
 		            </tbody>
@@ -88,9 +98,7 @@ export class Menu extends Component {
 		                </tr>
 		                <tr>
 		                    <td>
-								<Link to="/">
-									<button>Выйти</button>
-								</Link>
+								<button onClick={this.props.logout}>Выйти</button>
 							</td>
 		                </tr>
 		            </tbody>
@@ -116,10 +124,11 @@ export class Menu extends Component {
 
 const mapStateToProps = state => ({
 	products: state.loader.products,
-	cart: state.cart.cart
+	cart: state.cart.cart,
+	islogin: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { makeOrder })(Menu);
+export default connect(mapStateToProps, { makeOrder, logout })(Menu);
 
 
 

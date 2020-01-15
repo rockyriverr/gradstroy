@@ -22,13 +22,13 @@ export class Cart extends Component {
 					<td>{this.props.products[key].name}</td>
 					<td>{this.props.products[key].price} р.</td>
 					<td>{cart[key]} шт.</td>
-					<td><button onClick={this.props.deleteProd.bind(this, key)}>Удалить</button></td>
+					<td><button onClick={this.rewrite.bind(this, key)}>Удалить</button></td>
 				</tr>
 			)
 		}
 		return (
 			<div style={{display: "flex"}}>
-				<Menu pathh={pathh}/>
+				<Menu pathh={pathh} reload={this.forceUpdate}/>
 				<table border="0" align="center" width="76%" height="70%" cellSpacing="10%" cellPadding="10%" id="trash" border="1">
 					<caption>Корзина</caption>
 					<tbody>

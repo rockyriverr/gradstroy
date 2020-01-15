@@ -1,10 +1,11 @@
 import axios from 'axios';
 
 import {
-    USER_LOADED,
     USER_LOADING,
+    USER_LOADED,
     AUTH_ERROR,
     LOGIN_SUCCESS,
+    LOGIN_FAIL,
     LOGOUT_SUCCESS,
     REGISTER_FAIL,
     REGISTER_SUCCESS
@@ -19,6 +20,10 @@ export const loadUser = () => (dispatch, getState) =>{
                 type: USER_LOADED,
                 payload: res.data
             });
+        }).catch(err => {
+            dispatch({
+                type: AUTH_ERROR
+            })
         })
 }
 
@@ -37,12 +42,15 @@ export const login = (username, password) => dispatch =>{
                 type: LOGIN_SUCCESS,
                 payload: res.data
             });
+        }).catch(err => {
+            dispatch({
+                type: LOGIN_FAIL
+            })
         })
 }
 
 export const logout = () => (dispatch, getState) =>{
-
-    axios.post('/api/auth/logout/', null, tokenConfig(getState))
+    axios.post('/api/auth/logout', null, tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: LOGOUT_SUCCESS

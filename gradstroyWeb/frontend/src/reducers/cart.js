@@ -1,5 +1,6 @@
  import { TO_CART } from "../actions/types.js"
  import { DELETE } from "../actions/types.js"
+  import { MAKE_ORDER } from "../actions/types.js"
 
  const initialState = {
 	cart: {}
@@ -36,6 +37,11 @@ export default function(state = initialState, action) {
 				...state,
 				cart: newCart1
 			};
+		case MAKE_ORDER:
+			return {
+				...state, 
+				cart: {}
+			}
 		default:
 			return state;
 	}

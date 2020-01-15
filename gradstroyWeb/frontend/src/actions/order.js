@@ -19,7 +19,7 @@ export const getOrders = () => (dispatch, getState) => {
 // MAKE ORDER
 
 export const makeOrder = (myOrder) => (dispatch, getState) => {
- 	axios.post('/api/orders', myOrder, tokenConfig(getState))
+ 	axios.post('/api/orders/', myOrder, tokenConfig(getState))
  		.then(res => {
  			dispatch({
  				type: MAKE_ORDER,

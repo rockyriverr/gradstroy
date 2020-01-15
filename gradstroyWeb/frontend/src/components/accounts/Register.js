@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { register } from '../../actions/auth'
@@ -17,7 +17,7 @@ export class Register extends Component {
     }
     onSubmit = e => {
         e.preventDefault();
-        const {password, password2} = this.state;
+        const {username, email, password, password2} = this.state;
         if (password == password2){
             const newUser = { 
                 username,

@@ -14,8 +14,7 @@ export default function(state = initialState, action) {
         case MAKE_ORDER:
           return {
             ...state,
-            orders: [...state.orders, action.payload],
-            cart: []
+            orders: [...state.orders, action.payload]
           }
        default:
            return state;

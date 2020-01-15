@@ -29,7 +29,7 @@ export class Login extends Component {
             <div>
                 <Link to="/"><button className = "butt">Каталог</button></Link>
                 <div id="wrap">
-                    <form name="login-form" className="login-form" action="" method="post">
+                    <form name="login-form" className="login-form" action="" method="post" onSubmit={this.onSubmit}>
 
                         <div className="header">
                             <h1>Авторизация</h1>
@@ -54,4 +54,4 @@ export class Login extends Component {
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated
 })
-export default connect(mapStateToProps, {login}) (Login);
+export default connect(mapStateToProps, {login})(Login);
