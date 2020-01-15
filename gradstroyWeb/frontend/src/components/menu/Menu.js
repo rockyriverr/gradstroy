@@ -14,8 +14,10 @@ export class Menu extends Component {
 			orderDescr += products[key].name + " (" + cart[key].toString(10) + " шт.) ";
 			sum += products[key].price*cart[key];
 		}
-		orderDescr += "Сумма: " + sum.toString(10) + "р.";
-		this.props.makeOrder(JSON.stringify({description: orderDescr, status: "Ожидает подтверждения"}));
+		if (orderDescr !== "") {
+			orderDescr += "Сумма: " + sum.toString(10) + "р.";
+			this.props.makeOrder(JSON.stringify({description: orderDescr, status: "Ожидает подтверждения"}));
+		}
 	}
 	render() {
 		let retmenu;
