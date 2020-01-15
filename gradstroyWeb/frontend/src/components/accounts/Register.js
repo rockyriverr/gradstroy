@@ -1,4 +1,8 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { register } from '../../actions/auth'
 
 export class Register extends Component {
     state = {
@@ -7,31 +11,58 @@ export class Register extends Component {
         password: '',
         password2: ''
     }
+    static propTypes = {
+        register: PropTypes.func.isRequired,
+        isAuthenticated: PropTypes.bool
+    }
+    onSubmit = e => {
+        e.preventDefault();
+        const {password, password2} = this.state;
+        if (password == password2){
+            const newUser = { 
+                username,
+                password,
+                email
+            }
+            this.props.register(newUser);
+        }
+    }
+
+    onChange = e =>  this.setState({[e.target.name]:e.target.value});
     render() {
+        if (this.props.isAuthenticated){
+            return <Redirect to="/" />
+        }
+        const { username, email, password, password2} = this.state;
         return (
-            <div id="wrap">
-                <form name="login-form" class="login-form" action="" method="post">
+            <div>
+                <Link to="/"><button className = "butt">Каталог</button></Link>
+                <div id="wrap">
+                    <form onSubmit={this.onSubmit} name="login-form" className="login-form" action="" method="post">
 
-                    <div class="header">
-                        <h1>Регистрация</h1>
-                    </div>
+                        <div className="header">
+                            <h1>Регистрация</h1>
+                        </div>
 
-                    <div class="content_1">
-                        <input name="email" type="email" class="input email" value="Введите email" onfocus="this.value=''" />
-                        <input name="username" type="text" class="input username" value="Введите имя" onfocus="this.value=''" />
-                        <input  type="tel" name="tel" pattern="8[0-9]{9}" class="input tel" value="Введите телефон" onfocus="this.value=''" />
-                        <input name="password" type="password" class="input password" placeholder="Ведите пароль"/>
-                        <input name="password" type="password" class="input password" placeholder="Повторите пароль" />
-                    </div>
+                        <div className="content_1">
+                        <input name="username" type="text" onChange={this.onChange} className="input username" value={username} placeholder="Введите имя"  />
+                            <input name="email" onChange={this.onChange} type="email" className="input email" value={email} placeholder="Введите email" />
+                            <input name="password" onChange={this.onChange} type="password" value={password} className="input password" placeholder="Ведите пароль"/>
+                            <input name="password2" onChange={this.onChange} type="password" value={password2} className="input password" placeholder="Повторите пароль" />
+                        </div>
 
-                    <div class="footer">
-    <input type="submit" name="submit" value="Регистрация" class="button_1" />
-</div>
+                        <div className="footer">
+                            <input type="submit" name="submit" value="Регистрация" className="button_1" />
+                        </div>
 
-</form>
+                    </form>
+                </div>
             </div>
         )
     }
 }
 
-export default Register
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+})
+export default connect(mapStateToProps, {register}) (Register);

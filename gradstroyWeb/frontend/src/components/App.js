@@ -7,11 +7,18 @@ import Menu from './menu/Menu';
 import Cart from './cart/Cart';
 import Catalog from './catalog/Catalog';
 import Order from './orders/Orders'
+import Login from "./accounts/Login"
+import Register from "./accounts/Register"
+import PrivateRoute from "./common/PrivateRoute"
+import { loadUser } from '../actions/auth';
 
 import { Provider } from 'react-redux';
 import store from '../store';
 
 class App extends Component {
+	componentDidMount(){
+		store.dispatch(loadUser());
+	}
 	render() {
 		return (
 			<Provider store={store}>
@@ -19,7 +26,9 @@ class App extends Component {
 					<Switch>
 						<Route exact path="/" component={Catalog} />
 						<Route exact path="/cart" component={Cart} />
-						<Route exact path="/orders" component={Order}/>
+						<PrivateRoute exact path="/orders" component={Order}/>
+						<Route exact path="/register" component={Register} />
+						<Route exact path="/login" component={Login} />
 					</Switch>
 				</Router>
 			</Provider> 
