@@ -7,13 +7,11 @@ import { toCart } from '../../actions/cart'
 
 
 export class Order extends Component {
-    static propTypes = {
-        orders: PropTypes.array.isRequired
-    }
     componentDidMount() {
 		this.props.getOrders();
 	}
     render() {
+        const pathh = "/orders";
         let orders = [];
 		const len = this.props.orders.length;
 		for (let i = 0; i < len; ++i) {
@@ -31,16 +29,16 @@ export class Order extends Component {
 		}
         return (
             <div style={{display: "flex"}}>
-                <Menu />
+                <Menu pathh={pathh}/>
                 <div id="wrapp" >
-                    <table border="0" align="center" width="76%" height="70%" cellspacing="10%" cellpadding="10%" id="trash_1" border="1">
+                    <table border="0" align="center" width="76%" height="70%" cellSpacing="10%" cellPadding="10%" id="trash_1" border="1">
                         <caption >Мои заказы</caption>
-                        <tr>
-                            <th>Описание заказа</th>
-                            <th>Статус</th>
-                        </tr>
                         <tbody>
-				            {orders}
+                            <tr>
+                                <th>Описание заказа</th>
+                                <th>Статус</th>
+                            </tr>
+                            {orders}
 				        </tbody>
                     </table>
                 </div>
@@ -49,4 +47,8 @@ export class Order extends Component {
     }
 }
 
-export default Order;
+const mapStateToProps = state => ({
+    orders: state.orders.orders
+});
+
+export default connect(mapStateToProps, { getOrders })(Order);

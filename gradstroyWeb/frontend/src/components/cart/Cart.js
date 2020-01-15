@@ -10,10 +10,10 @@ export class Cart extends Component {
 		this.forceUpdate();
 	} 
 	render() {
-		console.log(this.props);
+		const pathh = "/cart";
 		let mystore = [];
 		const cart = this.props.cart;
-		for (var key in this.props.cart) {
+		for (var key in cart) {
 			mystore.push(
 				<tr key={key}>
 					<td>
@@ -28,7 +28,7 @@ export class Cart extends Component {
 		}
 		return (
 			<div style={{display: "flex"}}>
-				<Menu />
+				<Menu pathh={pathh}/>
 				<table border="0" align="center" width="76%" height="70%" cellSpacing="10%" cellPadding="10%" id="trash" border="1">
 					<caption>Корзина</caption>
 					<tbody>

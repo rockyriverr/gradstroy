@@ -16,7 +16,7 @@ export class Catalog extends Component {
 	}
 
 	render() {
-		console.log(this.props)
+		const pathh = "/";
 		let products = [];
 		const len = this.props.products.length;
 		for (let i = 0; i < Math.floor(len/3); ++i) {
@@ -52,7 +52,7 @@ export class Catalog extends Component {
 
 		return (
 			<div style={{display: "flex"}}>
-				<Menu />
+				<Menu pathh={pathh}/>
 					<table border="0" align="right" width="60%" height="90%" cellSpacing="10%" cellPadding="0" bgcolor="white" id="bigtable" border="1">
 			            <caption>Каталог товаров</caption>
 			            <tbody>
