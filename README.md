@@ -25,7 +25,7 @@ $ python manage.py runserver
 
 You should have **npm** 6.9.0 (or higher) installed to run this app. 
 
- - `cd` into frontend folder
+ - `cd` into frontend folder.
 
 - Install required dependencies with 
 
