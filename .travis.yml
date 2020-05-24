@@ -1,13 +1,19 @@
-language: python
-python:
-  - "3.6" 
-  - "3.7" 
-  
-env: 
-  - DJANGO=2.2.12
+matrix:
+  include:
+    - language: python
+      python:
+       - "3.6" 
+       - "3.7" 
+
+      env: 
+       - DJANGO=2.2.12
  
-install:
-  - pip install -r requirements.txt
+      install:
+        - pip install -r requirements.txt
   
-script:
-  - python gradstroyWeb/manage.py test gradstroyWeb/
+      script:
+        - python gradstroyWeb/manage.py test gradstroyWeb/
+
+   - language: node_js
+    node_js:
+      - 6.9
